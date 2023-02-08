@@ -1,12 +1,17 @@
-mod player;
-
 use bevy::prelude::*;
-use player::{spawn_player, update_input};
+use player::PlayerPlugin;
+
+mod player;
 
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
-        .add_startup_system(spawn_player)
-        .add_system(update_input)
+        .add_plugin(PlayerPlugin)
+        .add_startup_system(spawn_camera)
         .run();
+}
+
+fn spawn_camera(mut cmds: Commands) {
+    let cam = Camera2dBundle::default();
+    cmds.spawn(cam);
 }
